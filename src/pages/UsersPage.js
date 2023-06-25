@@ -72,7 +72,7 @@ function applySortFilter(array, comparator, query) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-export default function UserPage() {
+export default function UsersPage() {
   const [page, setPage] = useState(0);
   const [order, setOrder] = useState('asc');
   const [selected, setSelected] = useState([]);
@@ -116,7 +116,7 @@ export default function UserPage() {
   return (
     <>
       <Helmet>
-        <title> User | Minimal UI </title>
+        <title> Users | eUprava </title>
       </Helmet>
 
       <Container>
@@ -153,7 +153,7 @@ export default function UserPage() {
                                 <Stack direction="row" alignItems="center" justifyContent="center" spacing={2}>
                                   <Avatar alt="name" src="/assets/images/avatars/avatar_default.jpg" />
                                   <Typography variant="subtitle2" noWrap>
-                                    {firstname} ${lastname}
+                                    {firstname} {lastname}
                                   </Typography>
                                 </Stack>
                               </TableCell>
