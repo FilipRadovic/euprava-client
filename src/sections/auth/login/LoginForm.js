@@ -33,7 +33,6 @@ export default function LoginForm() {
   const handleClick = async () => {
       try {
           const { email, password } = credentials;
-          console.log(credentials);
           await authService.login(email, password);
           navigate('/dashboard', { replace: true });
       } catch (error) {
