@@ -5,7 +5,7 @@ import {Link, Stack, IconButton, InputAdornment, TextField, Checkbox, Typography
 import { LoadingButton } from '@mui/lab';
 // components
 import Iconify from '../../../components/iconify';
-import {authService, InvalidCredentialsError} from "../../../api/auth";
+import {authService, InvalidCredentialsError} from "../../../api/auth.service";
 import {useDispatch} from "react-redux";
 import {login} from "../../../app/auth";
 
