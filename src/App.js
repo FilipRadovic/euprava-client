@@ -9,8 +9,7 @@ import { StyledChart } from './components/chart';
 import ScrollToTop from './components/scroll-to-top';
 import {Provider} from "react-redux";
 import store from "./app/store";
-import {QueryClientProvider} from "@tanstack/react-query/src/QueryClientProvider";
-import {QueryClient} from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const queryClient = new QueryClient()
 
