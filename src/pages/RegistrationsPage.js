@@ -97,7 +97,7 @@ export default function RegistrationsPage() {
                                     />
                                     <TableBody>
                                         {registrations_page.data.map((user) => {
-                                            const { id, firstname, lastname, email, jmbg, status } = user;
+                                            const { id, firstname, lastname, email, jmbg, status, city } = user;
 
                                             let statusColor;
                                             switch(status) {
@@ -131,12 +131,8 @@ export default function RegistrationsPage() {
                                                     <TableCell align="center">{jmbg}</TableCell>
 
                                                     <TableCell align="center">
-                                                        city
+                                                        {city.name}
                                                     </TableCell>
-
-                                                    {/*<TableCell align="left">*/}
-                                                    {/*  <Label color={(status === 'banned' && 'error') || 'success'}>{sentenceCase(status)}</Label>*/}
-                                                    {/*</TableCell>*/}
                                                 </TableRow>
                                             );
                                         })}
