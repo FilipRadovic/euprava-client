@@ -9,21 +9,27 @@ import { StyledChart } from './components/chart';
 import ScrollToTop from './components/scroll-to-top';
 import {Provider} from "react-redux";
 import store from "./app/store";
+import {QueryClientProvider} from "@tanstack/react-query/src/QueryClientProvider";
+import {QueryClient} from "@tanstack/react-query";
+
+const queryClient = new QueryClient()
 
 // ----------------------------------------------------------------------
 
 export default function App() {
   return (
     <Provider store={store}>
-        <HelmetProvider>
-            <BrowserRouter>
-                <ThemeProvider>
-                    <ScrollToTop />
-                    <StyledChart />
-                    <Router />
-                </ThemeProvider>
-            </BrowserRouter>
-        </HelmetProvider>
+        <QueryClientProvider client={queryClient}>
+            <HelmetProvider>
+                <BrowserRouter>
+                    <ThemeProvider>
+                        <ScrollToTop />
+                        <StyledChart />
+                        <Router />
+                    </ThemeProvider>
+                </BrowserRouter>
+            </HelmetProvider>
+        </QueryClientProvider>
     </Provider>
   );
 }
