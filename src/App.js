@@ -7,19 +7,23 @@ import ThemeProvider from './theme';
 // components
 import { StyledChart } from './components/chart';
 import ScrollToTop from './components/scroll-to-top';
+import {Provider} from "react-redux";
+import store from "./app/store";
 
 // ----------------------------------------------------------------------
 
 export default function App() {
   return (
-    <HelmetProvider>
-      <BrowserRouter>
-        <ThemeProvider>
-          <ScrollToTop />
-          <StyledChart />
-          <Router />
-        </ThemeProvider>
-      </BrowserRouter>
-    </HelmetProvider>
+    <Provider store={store}>
+        <HelmetProvider>
+            <BrowserRouter>
+                <ThemeProvider>
+                    <ScrollToTop />
+                    <StyledChart />
+                    <Router />
+                </ThemeProvider>
+            </BrowserRouter>
+        </HelmetProvider>
+    </Provider>
   );
 }
