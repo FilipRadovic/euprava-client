@@ -6,11 +6,14 @@ import { LoadingButton } from '@mui/lab';
 // components
 import Iconify from '../../../components/iconify';
 import {authService, InvalidCredentialsError} from "../../../api/auth";
+import {useDispatch} from "react-redux";
+import {login} from "../../../app/auth";
 
 // ----------------------------------------------------------------------
 
 export default function LoginForm() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [credentials, setCredentials] = useState({
       email: '',
@@ -33,7 +36,8 @@ export default function LoginForm() {
   const handleClick = async () => {
       try {
           const { email, password } = credentials;
-          await authService.login(email, password);
+          const data = await authService.login(email, password);
+          dispatch(login(data));
           navigate('/dashboard', { replace: true });
       } catch (error) {
           if (error instanceof InvalidCredentialsError) {

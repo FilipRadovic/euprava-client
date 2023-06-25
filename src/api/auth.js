@@ -7,7 +7,6 @@ class AuthService {
             const response = await server.post('login', {
                 email, password
             })
-
             return response.data;
         } catch (error) {
             if (error instanceof AxiosError) {
