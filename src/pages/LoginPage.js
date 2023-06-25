@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Link, Container, Typography, Divider, Stack, Button } from '@mui/material';
+import {Link, Container, Typography, Divider, Stack, Button, Box} from '@mui/material';
 // hooks
 import useResponsive from '../hooks/useResponsive';
 // components
@@ -24,6 +24,7 @@ const StyledSection = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
+  alignItems: 'center',
   boxShadow: theme.customShadows.card,
   backgroundColor: theme.palette.background.default,
 }));
@@ -50,20 +51,18 @@ export default function LoginPage() {
       </Helmet>
 
       <StyledRoot>
-        <Logo
-          sx={{
-            position: 'fixed',
-            top: { xs: 16, sm: 24, md: 40 },
-            left: { xs: 16, sm: 24, md: 40 },
-          }}
-        />
-
         {mdUp && (
           <StyledSection>
-            <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
-              Hi, Welcome Back
+            <Typography variant="h3" sx={{ p: 3 }}>
+              euprava.gov.rs
             </Typography>
-            <img src="/assets/illustrations/illustration_login.png" alt="login" />
+            <Typography variant="h4">
+              Добро дошли
+            </Typography>
+            <Typography variant="subtitle2" sx={{ p: 3, px: 5, textAlign: 'center' }}>
+              У пар корака до свих информација и електронских услуга у Републици Србији.
+            </Typography>
+            <img src="https://euprava.gov.rs/TheEGovernmentTheme/img/logo.svg" alt="login" style={{ width: '75%', aspectRatio: '1/1' }} />
           </StyledSection>
         )}
 
