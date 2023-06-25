@@ -14,8 +14,9 @@ import { LoginForm } from '../sections/auth/login';
 
 const StyledRoot = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('md')]: {
-    display: 'flex',
+    display: 'flex'
   },
+  overflowY: 'hidden'
 }));
 
 const StyledSection = styled('div')(({ theme }) => ({
@@ -68,13 +69,14 @@ export default function LoginPage() {
 
         <Container maxWidth="sm">
           <StyledContent>
-            <Typography variant="h4" gutterBottom>
-              Sign in to Minimal
-            </Typography>
+            <Box>
+              <Typography variant="h4" gutterBottom>
+                Портал за електронску идентификацију
+              </Typography>
+            </Box>
 
             <Typography variant="body2" sx={{ mb: 5 }}>
-              Don’t have an account? {''}
-              <Link variant="subtitle2">Get started</Link>
+              Пријава корисничким именом и лозинком је пријава основног нивоа поузданости.
             </Typography>
 
             <Stack direction="row" spacing={2}>
