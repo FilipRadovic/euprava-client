@@ -10,14 +10,20 @@ import Page404 from './pages/Page404';
 import ProductsPage from './pages/ProductsPage';
 import DashboardAppPage from './pages/DashboardAppPage';
 import RegistrationsPage from "./pages/RegistrationsPage";
+import {useSelector} from "react-redux";
+import {selectToken} from "./app/auth";
+import RouteGuard from "./guards/RouteGuard";
 
 // ----------------------------------------------------------------------
 
 export default function Router() {
+  const token = useSelector(selectToken);
+  const auth = !!token;
+
   const routes = useRoutes([
     {
       path: '/dashboard',
-      element: <DashboardLayout />,
+      element: <RouteGuard Component={DashboardLayout} auth={auth} />,
       children: [
         { element: <Navigate to="/dashboard/app" />, index: true },
         { path: 'app', element: <DashboardAppPage /> },

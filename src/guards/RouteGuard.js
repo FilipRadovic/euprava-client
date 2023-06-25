@@ -1,13 +1,13 @@
 import React from 'react';
-import { Route, Redirect } from "react-router-dom";
+import { Navigate  } from "react-router-dom";
 
 export const RouteGuard = ({ Component, auth, ...rest }) => {
+    if (!auth) {
+        return <Navigate  to='/login' />
+    }
+
     return (
-        <Route {...rest} render={(props) => (
-            auth === true
-                ? <Component {...props} />
-                : <Redirect to='/login' />
-        )} />
+        <Component {...rest} />
     )
 }
 
