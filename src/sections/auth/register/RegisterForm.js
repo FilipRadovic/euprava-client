@@ -20,6 +20,8 @@ import {Formik} from "formik";
 import * as Yup from 'yup';
 import YupPassword from 'yup-password'
 import {useCities} from "../../../hooks/useCities";
+import {useDocumentTypes} from "../../../hooks/useDocumentTypes";
+import registrationService from "../../../api/registration.service";
 YupPassword(Yup); // extend yup
 
 const initialValues = {
@@ -42,7 +44,7 @@ const schema = Yup.object().shape({
     jmbg: Yup.string().required().length(13).matches(new RegExp('[0-9]{13}')),
     city: Yup.string().required(),
     document_type: Yup.string().required(),
-    document_number: Yup.string().required(),
+    document_number: Yup.string().required().matches(new RegExp('^[0-9A-Za-z]+$')),
     username: Yup.string().required().min(2).max(30),
     password: Yup.string().required().password(),
     password_confirm: Yup.string().required().oneOf([Yup.ref('password')])
@@ -50,20 +52,23 @@ const schema = Yup.object().shape({
 
 export default function RegisterForm() {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
 
     const { cities, isLoading: isLoadingCities } = useCities();
+    const { types, isLoading: isLoadingTypes } = useDocumentTypes();
 
     return (
         <>
             <Formik
                 initialValues={initialValues}
                 validationSchema={schema}
-                onSubmit={(values, { setSubmitting }) => {
-                    setTimeout(() => {
-                        alert(JSON.stringify(values, null, 2));
-                        setSubmitting(false);
-                    }, 400);
+                onSubmit={async (values, { setSubmitting }) => {
+                    console.log(values);
+                    try {
+                        await registrationService.register(values);
+                        navigate('/login', { replace: true });
+                    } catch (error) {
+                        console.error(error);
+                    }
                 }}
                 isInitialValid={false}
             >
@@ -126,9 +131,9 @@ export default function RegisterForm() {
                                         sx={{ width: '50%' }}
                                         error={touched.city && errors.city}
                                     >
-                                        {cities.map(city => {
+                                        {cities.map(({ id, name }) => {
                                             return (
-                                                <MenuItem value={city.name}>{city.name}</MenuItem>
+                                                <MenuItem value={id}>{name}</MenuItem>
                                             )
                                         })}
                                     </Select>
@@ -138,16 +143,24 @@ export default function RegisterForm() {
 
                         <Typography sx={{ py: 2, px: 0 }}>Идентификациони документ (лична карта или пасош):</Typography>
                         <Stack direction="row" spacing={2} justifyContent="space-between" alignItems="center">
-                            <TextField
-                                id="document_type"
-                                name="document_type"
-                                label="Тип документа"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.document_type}
-                                sx={{ width: '50%' }}
-                                error={touched.document_type && errors.document_type}
-                            />
+                            {!isLoadingTypes && types && (
+                                <Select
+                                    id="document_type"
+                                    name="document_type"
+                                    label="Тип документа"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.document_type}
+                                    sx={{ width: '50%' }}
+                                    error={touched.document_type && errors.document_type}
+                                >
+                                    {types.map(({ id, type }) => {
+                                        return (
+                                            <MenuItem value={id}>{type}</MenuItem>
+                                        )
+                                    })}
+                                </Select>
+                            )}
                             <TextField
                                 id="document_number"
                                 name="document_number"
