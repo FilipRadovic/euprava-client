@@ -67,13 +67,12 @@ export default function RegisterForm() {
             <Formik
                 initialValues={initialValues}
                 validationSchema={schema}
-                onSubmit={async (values, { setSubmitting }) => {
-                    console.log(values);
+                onSubmit={async (values) => {
                     try {
                         await registrationService.register(values);
                         navigate('/login', { replace: true });
                     } catch (error) {
-                        console.error(error);
+                        setError('Something went wrong, please try again later')
                     }
                 }}
                 isInitialValid={false}
@@ -227,6 +226,10 @@ export default function RegisterForm() {
                             </Stack>
                             <Typography variant="body2" sx={{ mb: 5 }}>
                                 Упишите лозинку која ће садржати најмање осам карактера, бар једно велико и мало слово, број и специјални карактер
+                            </Typography>
+
+                            <Typography sx={{ color: 'red' }}>
+                                {error}
                             </Typography>
 
                             <LoadingButton onClick={handleSubmit} disabled={!isValid || isSubmitting} sx={{ marginTop: '20px' }} fullWidth size="large" type="submit" variant="contained">
