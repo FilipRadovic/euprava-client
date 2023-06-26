@@ -1,13 +1,25 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // @mui
-import {Link, Stack, IconButton, InputAdornment, TextField, Checkbox, Typography, Button} from '@mui/material';
+import {
+    Link,
+    Stack,
+    IconButton,
+    InputAdornment,
+    TextField,
+    Checkbox,
+    Typography,
+    Button,
+    Select,
+    MenuItem
+} from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // components
 import {useDispatch} from "react-redux";
 import {Formik} from "formik";
 import * as Yup from 'yup';
 import YupPassword from 'yup-password'
+import {useCities} from "../../../hooks/useCities";
 YupPassword(Yup); // extend yup
 
 const initialValues = {
@@ -39,6 +51,8 @@ const schema = Yup.object().shape({
 export default function RegisterForm() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    const { cities, isLoading: isLoadingCities } = useCities();
 
     return (
         <>
@@ -100,16 +114,25 @@ export default function RegisterForm() {
                                     sx={{ width: '50%' }}
                                     error={touched.jmbg && errors.jmbg}
                                 />
-                                <TextField
-                                    id="city"
-                                    name="city"
-                                    label="Пребивалиште"
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    value={values.city}
-                                    sx={{ width: '50%' }}
-                                    error={touched.city && errors.city}
-                                />
+                                {!isLoadingCities && cities && (
+                                    <Select
+                                        id="city"
+                                        name="city"
+                                        label="Пребивалиште"
+                                        placeholder="Пребивалиште"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={values.city}
+                                        sx={{ width: '50%' }}
+                                        error={touched.city && errors.city}
+                                    >
+                                        {cities.map(city => {
+                                            return (
+                                                <MenuItem value={city.name}>{city.name}</MenuItem>
+                                            )
+                                        })}
+                                    </Select>
+                                )}
                             </Stack>
                         </Stack>
 
