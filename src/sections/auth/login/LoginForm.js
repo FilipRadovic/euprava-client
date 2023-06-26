@@ -38,6 +38,7 @@ export default function LoginForm() {
           const { email, password } = credentials;
           const data = await authService.login(email, password);
           dispatch(login(data));
+          localStorage.setItem('auth', JSON.stringify(data));
           navigate('/dashboard', { replace: true });
       } catch (error) {
           if (error instanceof InvalidCredentialsError) {
