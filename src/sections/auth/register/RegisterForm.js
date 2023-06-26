@@ -56,6 +56,12 @@ export default function RegisterForm() {
     const { cities, isLoading: isLoadingCities } = useCities();
     const { types, isLoading: isLoadingTypes } = useDocumentTypes();
 
+    const [error, setError] = useState('');
+
+    const redirectToLogin = () => {
+        navigate('/login', { replace: true });
+    }
+
     return (
         <>
             <Formik
@@ -226,6 +232,9 @@ export default function RegisterForm() {
                             <LoadingButton onClick={handleSubmit} disabled={!isValid || isSubmitting} sx={{ marginTop: '20px' }} fullWidth size="large" type="submit" variant="contained">
                                 Регистрација
                             </LoadingButton>
+                            <Button color="grey" fullWidth size="large" type="submit" variant="contained" onClick={redirectToLogin} sx={{marginTop: "10px"}}>
+                                Већ имате налог?
+                            </Button>
                         </Stack>
                     </>
                 }
