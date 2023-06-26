@@ -29,6 +29,7 @@ import Scrollbar from '../components/scrollbar';
 // sections
 import { UserListHead, UserListToolbar } from '../sections/@dashboard/user';
 import {useRegistrations} from "../hooks/useRegistrations";
+import {useApproveMutation} from "../hooks/useApproveMutation";
 
 // ----------------------------------------------------------------------
 
@@ -51,12 +52,22 @@ export default function RegistrationsPage() {
 
     const { page: registrations_page, isError, isLoading } = useRegistrations(page, size);
 
+    const { mutateAsync: approve } = useApproveMutation();
+
+    const onApproveRegistration = async (id) => {
+        try {
+            await approve(id);
+            alert('Registration approved');
+        } catch (error) {
+            alert('Something went wrong, please try again later');
+        }
+    }
+
     const handleRequestSort = (event, property) => {
         const isAsc = orderBy === property && order === 'asc';
         setOrder(isAsc ? 'desc' : 'asc');
         setOrderBy(property);
     };
-
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -149,7 +160,7 @@ export default function RegistrationsPage() {
                                                     <TableCell align="center">
                                                         {status === 'PENDING' && (
                                                             <>
-                                                                <Button variant="contained" color="success" sx={{ m: 0.5, color: 'white' }}>
+                                                                <Button variant="contained" color="success" sx={{ m: 0.5, color: 'white' }} onClick={() => onApproveRegistration(id)}>
                                                                     approve
                                                                 </Button>
                                                                 <Button variant="contained" color="error" sx={{ color: 'white' }}>
