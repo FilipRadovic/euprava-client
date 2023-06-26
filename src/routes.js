@@ -1,20 +1,14 @@
 import { Navigate, useRoutes } from 'react-router-dom';
-// layouts
 import DashboardLayout from './layouts/dashboard';
 import SimpleLayout from './layouts/simple';
-//
-import BlogPage from './pages/BlogPage';
 import UsersPage from './pages/UsersPage';
 import LoginPage from './pages/LoginPage';
 import Page404 from './pages/Page404';
-import ProductsPage from './pages/ProductsPage';
 import DashboardAppPage from './pages/DashboardAppPage';
 import RegistrationsPage from "./pages/RegistrationsPage";
 import {useSelector} from "react-redux";
 import {selectToken} from "./app/auth";
 import RouteGuard from "./guards/RouteGuard";
-
-// ----------------------------------------------------------------------
 
 export default function Router() {
   const token = useSelector(selectToken);
@@ -34,6 +28,10 @@ export default function Router() {
     {
       path: 'login',
       element: <LoginPage />,
+    },
+    {
+      path: 'register',
+      element: <LoginPage />
     },
     {
       element: <SimpleLayout />,

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // @mui
-import {Link, Stack, IconButton, InputAdornment, TextField, Checkbox, Typography} from '@mui/material';
+import {Link, Stack, IconButton, InputAdornment, TextField, Checkbox, Typography, Button} from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // components
 import Iconify from '../../../components/iconify';
@@ -48,6 +48,10 @@ export default function LoginForm() {
       }
   };
 
+  const handleRegister = () => {
+      navigate('/register', { replace: true });
+  }
+
   return (
     <>
       <Stack spacing={3}>
@@ -80,6 +84,9 @@ export default function LoginForm() {
       <LoadingButton fullWidth size="large" type="submit" variant="contained" onClick={handleClick}>
         Login
       </LoadingButton>
+        <Button color="grey" fullWidth size="large" type="submit" variant="contained" onClick={handleRegister} sx={{marginTop: "10px"}}>
+            Register
+        </Button>
     </>
   );
 }
