@@ -30,6 +30,7 @@ import Scrollbar from '../components/scrollbar';
 import { UserListHead, UserListToolbar } from '../sections/@dashboard/user';
 import {useRegistrations} from "../hooks/useRegistrations";
 import {useApproveMutation} from "../hooks/useApproveMutation";
+import {useRejectMutation} from "../hooks/useRejectMutation";
 
 // ----------------------------------------------------------------------
 
@@ -53,11 +54,21 @@ export default function RegistrationsPage() {
     const { page: registrations_page, isError, isLoading } = useRegistrations(page, size);
 
     const { mutateAsync: approve } = useApproveMutation();
+    const { mutateAsync: reject } = useRejectMutation();
 
     const onApproveRegistration = async (id) => {
         try {
             await approve(id);
             alert('Registration approved');
+        } catch (error) {
+            alert('Something went wrong, please try again later');
+        }
+    }
+
+    const onRejectRegistration = async (id) => {
+        try {
+            await reject(id);
+            alert('Registration rejected');
         } catch (error) {
             alert('Something went wrong, please try again later');
         }
@@ -163,7 +174,7 @@ export default function RegistrationsPage() {
                                                                 <Button variant="contained" color="success" sx={{ m: 0.5, color: 'white' }} onClick={() => onApproveRegistration(id)}>
                                                                     approve
                                                                 </Button>
-                                                                <Button variant="contained" color="error" sx={{ color: 'white' }}>
+                                                                <Button variant="contained" color="error" sx={{ color: 'white' }} onClick={() => onRejectRegistration(id)}>
                                                                     reject
                                                                 </Button>
                                                             </>
