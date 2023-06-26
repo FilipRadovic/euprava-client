@@ -9,6 +9,7 @@ import Logo from '../components/logo';
 import Iconify from '../components/iconify';
 // sections
 import { LoginForm } from '../sections/auth/login';
+import RegisterForm from "../sections/auth/register/RegisterForm";
 
 // ----------------------------------------------------------------------
 
@@ -76,10 +77,10 @@ export default function LoginPage() {
                         </Box>
 
                         <Typography variant="body2" sx={{ mb: 5 }}>
-                            Пријава корисничким именом и лозинком је пријава основног нивоа поузданости.
+                            Региструјте налог корисничким именом и лозинком
                         </Typography>
 
-                        <LoginForm />
+                        <RegisterForm />
                     </StyledContent>
                 </Container>
             </StyledRoot>
