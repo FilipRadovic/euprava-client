@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 // @mui
 import { styled, alpha } from '@mui/material/styles';
 import { Box, Link, Button, Drawer, Typography, Avatar, Stack } from '@mui/material';
@@ -13,7 +13,7 @@ import Logo from '../../../components/logo';
 import Scrollbar from '../../../components/scrollbar';
 import NavSection from '../../../components/nav-section';
 //
-import navConfig from './config';
+import ADMIN_NAV_CONFIG, {useNavigation} from './config';
 import {selectUser} from "../../../app/auth";
 import {useSelector} from "react-redux";
 
@@ -41,6 +41,8 @@ export default function Nav({ openNav, onCloseNav }) {
 
   const isDesktop = useResponsive('up', 'lg');
   const user = useSelector(selectUser);
+
+  const NAV_CONFIG = useNavigation();
 
   useEffect(() => {
     if (openNav) {
@@ -80,7 +82,7 @@ export default function Nav({ openNav, onCloseNav }) {
         </Link>
       </Box>
 
-      <NavSection data={navConfig} />
+      <NavSection data={NAV_CONFIG} />
 
       <Box sx={{ flexGrow: 1 }} />
 
