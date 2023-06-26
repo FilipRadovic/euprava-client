@@ -40,8 +40,6 @@ export default function RegisterForm() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const [showPassword, setShowPassword] = useState(false);
-
     return (
         <>
             <Formik
