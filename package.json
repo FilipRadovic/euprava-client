@@ -66,7 +66,9 @@
     "react-scripts": "^5.0.1",
     "redux": "^4.2.1",
     "simplebar-react": "^3.2.1",
-    "web-vitals": "^3.1.1"
+    "web-vitals": "^3.1.1",
+    "yup": "^1.2.0",
+    "yup-password": "^0.2.2"
   },
   "devDependencies": {
     "@babel/core": "^7.21.0",

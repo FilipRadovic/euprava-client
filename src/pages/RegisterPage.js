@@ -76,7 +76,7 @@ export default function LoginPage() {
                             </Typography>
                         </Box>
 
-                        <Typography variant="body2" sx={{ mb: 5 }}>
+                        <Typography variant="body2" sx={{ mb: 1 }}>
                             Региструјте налог корисничким именом и лозинком
                         </Typography>
 
