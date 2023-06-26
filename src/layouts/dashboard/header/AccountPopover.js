@@ -4,8 +4,10 @@ import { alpha } from '@mui/material/styles';
 import { Box, Divider, Typography, Stack, MenuItem, Avatar, IconButton, Popover } from '@mui/material';
 // mocks_
 import account from '../../../_mock/account';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {selectUser} from "../../../app/auth";
+import { logout as storeLogout } from '../../../app/auth'
+import {useNavigate} from "react-router-dom";
 
 // ----------------------------------------------------------------------
 
@@ -29,6 +31,9 @@ const MENU_OPTIONS = [
 export default function AccountPopover() {
   const [open, setOpen] = useState(null);
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const user = useSelector(selectUser);
 
   const handleOpen = (event) => {
@@ -38,6 +43,12 @@ export default function AccountPopover() {
   const handleClose = () => {
     setOpen(null);
   };
+
+  const logout = () => {
+    dispatch(storeLogout());
+    localStorage.clear();
+    navigate('/login');
+  }
 
   return (
     <>
@@ -101,7 +112,7 @@ export default function AccountPopover() {
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
-        <MenuItem onClick={handleClose} sx={{ m: 1 }}>
+        <MenuItem onClick={logout} sx={{ m: 1 }}>
           Logout
         </MenuItem>
       </Popover>

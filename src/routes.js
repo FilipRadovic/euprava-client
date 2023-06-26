@@ -29,11 +29,11 @@ export default function Router() {
     },
     {
       path: 'login',
-      element: <AuthRouteGuard Component={<LoginPage />} auth={auth} />
+      element: <AuthRouteGuard Component={LoginPage} auth={auth} />
     },
     {
       path: 'register',
-      element: <AuthRouteGuard Component={<RegisterPage />} auth={auth} />
+      element: <AuthRouteGuard Component={RegisterPage} auth={auth} />
     },
     {
       element: <SimpleLayout />,
