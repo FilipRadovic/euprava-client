@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { filter } from 'lodash';
+import {filter, upperCase} from 'lodash';
 import { sentenceCase } from 'change-case';
 import { useState } from 'react';
 // @mui
@@ -37,7 +37,9 @@ const TABLE_HEAD = [
     { id: 'name', label: 'Name', alignRight: false },
     { id: 'email', label: 'Email', alignRight: false },
     { id: 'jmbg', label: 'JMBG', alignRight: false },
-    { id: 'city', label: 'City', alignRight: false }
+    { id: 'city', label: 'City', alignRight: false },
+    { id: 'document', label: 'Document', alignRight: false },
+    { id: 'actions', label: 'Actions', alignRight: false }
 ];
 
 export default function RegistrationsPage() {
@@ -97,7 +99,7 @@ export default function RegistrationsPage() {
                                     />
                                     <TableBody>
                                         {registrations_page.data.map((user) => {
-                                            const { id, firstname, lastname, email, jmbg, status, city } = user;
+                                            const { id, firstname, lastname, email, jmbg, status, city, document } = user;
 
                                             let statusColor;
                                             switch(status) {
@@ -112,10 +114,16 @@ export default function RegistrationsPage() {
                                                     break;
                                             }
 
+                                            let documentInformation = 'N/A';
+                                            if (document) {
+                                                const type = document.type_id === 1 ? 'Pasos' : 'Licna karta';
+                                                documentInformation = `${document.document_number} (${type})`;
+                                            }
+
                                             return (
                                                 <TableRow hover key={id} tabIndex={-1} role="checkbox" selected={false}>
                                                     <TableCell align="center">
-                                                        <Label color={statusColor}>{sentenceCase(status)}</Label>
+                                                        <Label sx={{ p: 2 }} color={statusColor}>{upperCase(status)}</Label>
                                                     </TableCell>
 
                                                     <TableCell align="center">
@@ -132,6 +140,23 @@ export default function RegistrationsPage() {
 
                                                     <TableCell align="center">
                                                         {city.name}
+                                                    </TableCell>
+
+                                                    <TableCell align="center">
+                                                        {documentInformation}
+                                                    </TableCell>
+
+                                                    <TableCell align="center">
+                                                        {status === 'PENDING' && (
+                                                            <>
+                                                                <Button variant="contained" color="success" sx={{ m: 0.5, color: 'white' }}>
+                                                                    approve
+                                                                </Button>
+                                                                <Button variant="contained" color="error" sx={{ color: 'white' }}>
+                                                                    reject
+                                                                </Button>
+                                                            </>
+                                                        )}
                                                     </TableCell>
                                                 </TableRow>
                                             );
