@@ -25,8 +25,38 @@ export class RegistrationService {
             throw new Error(response.data);
         }
     }
+
+    async reject(id) {
+        try {
+            await server.delete('registrations/' + id);
+        } catch (error) {
+            if (error.response && error.response.status === 409) {
+                throw new InvalidRegistrationStateError(id, 'rejected')
+            }
+
+            throw error;
+        }
+    }
+
+    async approve(id) {
+        try {
+            await server.put('registrations/' + id);
+        } catch (error) {
+            if (error.response && error.response.status === 409) {
+                throw new InvalidRegistrationStateError(id, 'approved')
+            }
+
+            throw error;
+        }
+    }
 }
 
 export const registrationService = new RegistrationService();
 
 export default registrationService;
+
+class InvalidRegistrationStateError extends Error {
+    constructor(id, operation) {
+        super('Registration with id=' + id + ' can not be ' + operation);
+    }
+}
