@@ -8,8 +8,9 @@ import DashboardAppPage from './pages/DashboardAppPage';
 import RegistrationsPage from "./pages/RegistrationsPage";
 import {useSelector} from "react-redux";
 import {selectToken} from "./app/auth";
-import RouteGuard from "./guards/RouteGuard";
+import UnauthorizedRouteGuard from "./guards/UnauthorizedRouteGuard";
 import RegisterPage from "./pages/RegisterPage";
+import AuthRouteGuard from "./guards/AuthRouteGuard";
 
 export default function Router() {
   const token = useSelector(selectToken);
@@ -18,7 +19,7 @@ export default function Router() {
   const routes = useRoutes([
     {
       path: '/dashboard',
-      element: <RouteGuard Component={DashboardLayout} auth={auth} />,
+      element: <UnauthorizedRouteGuard Component={DashboardLayout} auth={auth} />,
       children: [
         { element: <Navigate to="/dashboard/app" />, index: true },
         { path: 'app', element: <DashboardAppPage /> },
@@ -28,11 +29,11 @@ export default function Router() {
     },
     {
       path: 'login',
-      element: <LoginPage />,
+      element: <AuthRouteGuard Component={<LoginPage />} auth={auth} />
     },
     {
       path: 'register',
-      element: <RegisterPage />
+      element: <AuthRouteGuard Component={<RegisterPage />} auth={auth} />
     },
     {
       element: <SimpleLayout />,
