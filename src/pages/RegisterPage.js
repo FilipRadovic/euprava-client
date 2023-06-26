@@ -58,10 +58,10 @@ export default function LoginPage() {
                             euprava.gov.rs
                         </Typography>
                         <Typography variant="h4">
-                            Добро дошли
+                            Портал за електронску идентификацију
                         </Typography>
                         <Typography variant="subtitle2" sx={{ p: 3, px: 5, textAlign: 'center' }}>
-                            У пар корака до свих информација и електронских услуга у Републици Србији.
+                            Регистрацијом на Порталу еИД, активацијом мобилне апликације ConsentID и квалификованог електронског сертификата у клауду брзо и лако користите све услуге и функционалности еУправе.
                         </Typography>
                         <img src="https://euprava.gov.rs/TheEGovernmentTheme/img/logo.svg" alt="login" style={{ width: '75%', aspectRatio: '1/1' }} />
                     </StyledSection>

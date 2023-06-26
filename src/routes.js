@@ -9,6 +9,7 @@ import RegistrationsPage from "./pages/RegistrationsPage";
 import {useSelector} from "react-redux";
 import {selectToken} from "./app/auth";
 import RouteGuard from "./guards/RouteGuard";
+import RegisterPage from "./pages/RegisterPage";
 
 export default function Router() {
   const token = useSelector(selectToken);
@@ -31,7 +32,7 @@ export default function Router() {
     },
     {
       path: 'register',
-      element: <LoginPage />
+      element: <RegisterPage />
     },
     {
       element: <SimpleLayout />,
