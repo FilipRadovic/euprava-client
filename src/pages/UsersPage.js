@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { filter } from 'lodash';
 import { sentenceCase } from 'change-case';
-import { useState } from 'react';
+import {useMemo, useState} from 'react';
 // @mui
 import {
   Card,
@@ -82,10 +82,30 @@ export default function UsersPage() {
 
   const { page: users_page, isError, isLoading } = useUsers(page, size);
 
+  const sortedPage = useMemo(() => {
+    if (!users_page) return;
+
+    const sorted = [...users_page.data];
+    sorted.sort((first, second) => {
+      const name1 = first.firstname + first.lastname;
+      const name2 = second.firstname + second.lastname;
+      if (order === 'asc') {
+        return name1 > name2 ? 1 : -1;
+      } else {
+        return name1 > name2 ? -1 : 1;
+      }
+    })
+
+    return {
+      ...users_page,
+      data: sorted
+    }
+  }, [users_page, order, orderBy]);
+
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
-    setOrderBy(property);
+    setOrderBy('name');
   };
 
   const handleSelectAllClick = (event) => {
@@ -144,7 +164,7 @@ export default function UsersPage() {
                         onSelectAllClick={handleSelectAllClick}
                     />
                     <TableBody>
-                      {users_page.data.map((user) => {
+                      {sortedPage.data.map((user) => {
                         const { id, firstname, lastname, email, jmbg, role } = user;
 
                         return (
